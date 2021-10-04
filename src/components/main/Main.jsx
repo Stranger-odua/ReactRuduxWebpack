@@ -5,6 +5,7 @@ import {getRepos} from "../actions/repos";
 import Repo from "./repo/Repo";
 import {setCurrentPage} from "../../reducers/reposReducer";
 import {createPages} from "../utils/pagesCreator";
+import {Redirect} from "react-router-dom";
 
 
 
@@ -15,6 +16,7 @@ const Main = () => {
   const currentPage = useSelector(state => state.repos.currentPage)
   const totalCount = useSelector(state => state.repos.totalCount)
   const perPage = useSelector(state => state.repos.perPage)
+  const isFetchError = useSelector(state => state.repos.isFetchError)
   const [searchValue, setSearchValue] = useState('')
   const pagesCount = Math.ceil(totalCount / perPage)
   const pages = []
@@ -28,6 +30,10 @@ const Main = () => {
   const searchHandler = () => {
     dispatch(setCurrentPage(1))
     dispatch(getRepos(searchValue, currentPage, perPage))
+  }
+
+  if (isFetchError) {
+    return <Redirect to={'/error'}/>
   }
 
   return (
