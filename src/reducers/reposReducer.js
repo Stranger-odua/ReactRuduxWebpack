@@ -1,21 +1,19 @@
-const SET_COUNT = 'SET_COUNT'
+const SET_REPOS = 'SET_REPOS'
 
-
-// дефолтный стор
-const defaultStore = {
+// дефолтный state
+const defaultState = {
   items: [],
   isFetching: true,
-  count: true,
 }
 
 
 // редюсер
-export default function reposReducer (state = defaultStore, action) {
+export default function reposReducer(state = defaultState, action) {
   switch (action.type) {
-    case SET_COUNT:
+    case SET_REPOS:
       return {
         ...state,
-        count: action.payload
+        items: action.payload.items
       }
 
     default:
@@ -23,8 +21,8 @@ export default function reposReducer (state = defaultStore, action) {
   }
 }
 
-// функция action creator, которая возвращает объект action
-export const setCount = (count) => ({type: SET_COUNT, payload: count})
+// action creator
+export const setRepos = (repos) => ({type: SET_REPOS, payload: repos})
 
 
 
